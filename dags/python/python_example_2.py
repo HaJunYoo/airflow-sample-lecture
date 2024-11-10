@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 # DAG 정의
 dag = DAG(
-    'my_dag',
+    'python_example_2',
     description='My example DAG',
     tags=['example', 'python'],
     schedule_interval=timedelta(days=1),  # 매일 실행
