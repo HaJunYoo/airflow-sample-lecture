@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 # Default arguments 설정
 default_args = {
     'owner': 'airflow',
-    'start_date': datetime(2024, 5, 27, hour=0, minute=00),
+    'start_date': datetime(2024, 11, 1, hour=0, minute=00),
     'email': ['hajuny129@gmail.com'],
     'retries': 1,
     'retry_delay': timedelta(minutes=3),
@@ -16,7 +16,7 @@ default_args = {
 dag = DAG(
     "bash_operation_v2",  # DAG name
     schedule="0 9 * * *", # 매일 오전 9시에 실행
-    tags=['test'],
+    tags=['test', 'bash'], #
     catchup=False,
     default_args=default_args
 )

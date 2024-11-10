@@ -3,19 +3,19 @@ from airflow.operators.bash import BashOperator
 from datetime import datetime, timedelta
 
 default_args = {
- 'owner': 'airflow',
- 'start_date': datetime(2024, 5, 27, hour=0, minute=00),
- 'email': ['hajuny129@gmail.com'],
- 'retries': 1,
- 'retry_delay': timedelta(minutes=3),
+  'owner': 'airflow',
+  'start_date': datetime(2024, 11, 1, hour=0, minute=00),
+  'email': ['hajuny129@gmail.com'],
+  'retries': 1,
+  'retry_delay': timedelta(minutes=3),
 }
 
 test_dag = DAG(
- "bash_operation_v1", # DAG name
- schedule="0 9 * * *",
- tags=['test'],
- catchup=False, # catchUp -> catchup
- default_args=default_args
+  "bash_operation_v1", # DAG name
+  schedule="0 9 * * *",
+  tags=['test', 'bash'],
+  catchup=False, # catchUp -> catchup
+  default_args=default_args
 )
 
 t1 = BashOperator(

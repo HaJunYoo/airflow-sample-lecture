@@ -6,8 +6,9 @@ from datetime import datetime, timedelta
 dag = DAG(
     'my_dag',
     description='My example DAG',
+    tags=['example', 'python'],
     schedule_interval=timedelta(days=1),  # 매일 실행
-    start_date=datetime(2023, 1, 1),
+    start_date=datetime(2024, 11, 1),
     catchup=False,  # 과거 실행에서 누락된 작업을 재실행하지 않음
 )
 

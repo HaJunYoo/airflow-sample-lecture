@@ -19,7 +19,7 @@ pull_and_process_data 태스크:
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
-    'start_date': datetime(2024, 1, 1),
+    'start_date': datetime(2024, 11, 1),
     'email_on_failure': False,
     'email_on_retry': False,
     'retries': 1,
@@ -61,7 +61,8 @@ dag = DAG(
     'xcom_example',
     default_args=default_args,
     description='XCom을 사용한 태스크 간 데이터 공유 예제',
-    schedule_interval=timedelta(days=1),
+    schedule_interval='@once',
+    tags=['example', 'python', 'xcom'],
 )
 
 # 첫 번째 태스크: 데이터를 XCom에 저장

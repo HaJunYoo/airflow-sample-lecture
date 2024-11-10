@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 default_args = {
     'owner': 'airflow',  # DAG의 소유자
     'depends_on_past': False,  # 이전 DAG 실행 여부에 상관없이 실행
-    'start_date': datetime(2024, 1, 1),  # DAG 시작 날짜
+    'start_date': datetime(2024, 11, 1),  # DAG 시작 날짜
     'email_on_failure': False,  # 실패 시 이메일 알림 여부
     'email_on_retry': False,  # 재시도 시 이메일 알림 여부
     'retries': 3,  # 재시도 횟수
@@ -25,6 +25,7 @@ dag = DAG(
     default_args=default_args,  # 기본 인자 설정
     description='A simple DAG with retry and recovery',  # DAG 설명
     schedule_interval=timedelta(days=1),  # DAG 실행 간격 (매일 실행)
+    tags=['example', 'python'],  # DAG 태그
 )
 
 # 재시도 및 복구가 필요한 작업 정의
