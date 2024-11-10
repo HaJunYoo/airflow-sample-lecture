@@ -4,14 +4,14 @@ from datetime import datetime, timedelta
 
 default_args = {
  'owner': 'airflow',
- 'start_date': datetime(2023, 5, 27, hour=0, minute=00),
+ 'start_date': datetime(2024, 5, 27, hour=0, minute=00),
  'email': ['hajuny129@gmail.com'],
  'retries': 1,
  'retry_delay': timedelta(minutes=3),
 }
 
 test_dag = DAG(
- "dag_v1", # DAG name
+ "bash_operation_v1", # DAG name
  schedule="0 9 * * *",
  tags=['test'],
  catchup=False, # catchUp -> catchup
