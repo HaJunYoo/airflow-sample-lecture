@@ -7,11 +7,11 @@ from datetime import datetime, timedelta
 default_args = {
     'owner': 'airflow',  # DAG의 소유자
     'depends_on_past': False,  # 이전 DAG 실행 여부에 상관없이 실행
-    'start_date': datetime(2024, 11, 1),  # DAG 시작 날짜
+    'start_date': datetime(2024, 11, 15),  # DAG 시작 날짜
     'email_on_failure': False,  # 실패 시 이메일 알림 여부
     'email_on_retry': False,  # 재시도 시 이메일 알림 여부
     'retries': 3,  # 재시도 횟수
-    'retry_delay': timedelta(minutes=5),  # 재시도 간격
+    # 'retry_delay': timedelta(minutes=5),  # 재시도 간격
 }
 
 # 실패 시 호출될 함수
@@ -38,7 +38,7 @@ task_with_retry_and_recovery = PythonOperator(
     task_id='task_with_retry_and_recovery',  # 작업 ID
     python_callable=my_task_function,  # 실행할 Python 함수
     retries=3,  # 작업 별 재시도 횟수
-    retry_delay=timedelta(minutes=5),  # 작업 별 재시도 간격
+    retry_delay=timedelta(seconds=30),  # 작업 별 재시도 간격 (예시 30초)
     # on_failure_callback=on_failure_callback,  # 실패 시 호출될 함수
     dag=dag,  # 이 작업이 속한 DAG
 )
