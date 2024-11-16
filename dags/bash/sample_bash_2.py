@@ -16,7 +16,7 @@ default_args = {
 dag = DAG(
     "bash_operation_v2",  # DAG name
     schedule="0 9 * * *", # 매일 오전 9시에 실행
-    tags=['test', 'bash'], #
+    tags=['test', 'bash'],
     catchup=False,
     default_args=default_args
 )
@@ -24,6 +24,13 @@ dag = DAG(
 # Start task
 start = DummyOperator(
     task_id="start",
+    dag=dag
+)
+
+# Create directory task
+create_dir = BashOperator(
+    task_id='create_dir',
+    bash_command='mkdir -p /tmp/downloaded',
     dag=dag
 )
 
@@ -49,4 +56,4 @@ end = DummyOperator(
 )
 
 # Task 의존성 설정
-start >> t1 >> t2 >> end
+start >> create_dir >> t1 >> t2 >> end
