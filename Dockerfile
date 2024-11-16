@@ -1,27 +1,10 @@
-# Start from the Airflow image
 FROM apache/airflow:2.8.2
 
-# Change to the root user to install packages
-USER root
+# 모든 pip 설치를 한 번의 RUN 명령어로 통합
+COPY requirements.txt /
+RUN pip install --no-cache-dir -r /requirements.txt
 
-# Install necessary packages and PostgreSQL client (libpq)
-RUN apt-get update && \
-    apt-get install -y wget build-essential libssl-dev libreadline-dev zlib1g-dev && \
-    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
-    sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list' && \
-    apt-get update && \
-    apt-get -y -q install postgresql-client-13 libpq-dev
+ENV PIP_USER=false
+# 가상환경 생성 (필요 시)
 
-# Copy your requirements file into the Docker container
-COPY requirements.txt /requirements.txt
-
-# Set environment variable for additional requirements
-ARG _PIP_ADDITIONAL_REQUIREMENTS
-
-# Change back to the airflow user
-USER airflow
-
-# Install the Python packages
-RUN pip install -r /requirements.txt
-# RUN if [ -n "$_PIP_ADDITIONAL_REQUIREMENTS" ]; then pip install $_PIP_ADDITIONAL_REQUIREMENTS; fi
-
+ENV PIP_USER=true
